@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>geojsontiles-example</title>
+
+    <link rel="stylesheet" href="http://leafletjs.com/dist/leaflet.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="/static/leaflet/leaflet.ie.css" />
+    <![endif]-->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <script src="leaflet.js"></script>
+    <script src="TileLayer.GeoJSON.js"></script>
+    <script src="leaflet-providers.js"></script>
+
+    <style type="text/css">
+    html, body, #map {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script type="text/javascript">
+    var map = new L.Map('map' ,
+    		{minZoom: 10});
+    
+    map.setView(new L.LatLng(48.69889,9.84289), 12);
+
+    var baseLayer = L.tileLayer.provider('OpenStreetMap.DE');
+    map.addLayer(baseLayer);
+
+    var geojsonURL = 'http://localhost:8080/markers/{z}/{x}/{y}.json';
+    var geojsonTileLayer = new L.TileLayer.GeoJSON(geojsonURL, {
+            clipTiles: false,
+            unique: function (feature) { 
+                return feature.id;
+            }
+        }, {
+            onEachFeature: function (feature, layer) {
+            }
+        }
+    );
+    map.addLayer(geojsonTileLayer);
+    </script>
+</body>
+</html>
