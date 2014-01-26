@@ -7,7 +7,7 @@ the geojson tile layer.
 
 To run
 
-    mvn package
+    mvn jetty:run
     
 There is a resource german_cities.csv
 which was created from data from 
